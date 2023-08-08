@@ -32,11 +32,10 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
+            'name' => $user->name,
+            'email' => $user->email,
+            'image_url' => $user->image_url,
+            'token' => $token,
         ]);
     }
 
@@ -70,12 +69,14 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return response()->json([
-            'user' => Auth::user(),
-            'authorisation' => [
+        $user = Auth::user();
+        return response()->json(
+            [
+                'name' => $user->name,
+                'email' => $user->email,
+                'image_url' => $user->image_url,
                 'token' => Auth::refresh(),
-                'type' => 'bearer',
             ]
-        ]);
+        );
     }
 }

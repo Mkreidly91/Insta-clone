@@ -18,6 +18,37 @@ return new class extends Migration {
             $table->string('password');
             $table->string('image_url')->nullable();
         });
+        Schema::create('follows', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_1');
+            $table->unsignedBigInteger('user_2');
+            $table->foreign('user_1')->references('id')->on('users');
+            $table->foreign('user_2')->references('id')->on('users');
+        });
+
+
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->text('text');
+            $table->timestamp('created_at');
+            $table->string('image_url')->nullable();
+            $table->integer('likes');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
+        Schema::create('liked_posts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('post_id');
+            $table->text('text');
+            $table->string('image_url')->nullable();
+            $table->timestamp('created_at');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('post_id')->references('id')->on('posts');
+        });
+
+
     }
 
     /**
@@ -28,3 +59,5 @@ return new class extends Migration {
         Schema::dropIfExists('users');
     }
 };
+
+//    
