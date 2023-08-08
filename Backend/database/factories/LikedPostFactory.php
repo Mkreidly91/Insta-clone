@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\LikedPost>
  */
 class LikedPostFactory extends Factory
 {
@@ -17,7 +18,8 @@ class LikedPostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "user_id" => User::all()->random(),
+            "post_id" => User::all()->random()
         ];
     }
 }

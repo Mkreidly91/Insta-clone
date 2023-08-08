@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string('password');
             $table->string('image_url')->nullable();
         });
+
+
         Schema::create('follows', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_1');
@@ -33,7 +35,7 @@ return new class extends Migration {
             $table->text('text');
             $table->timestamp('created_at');
             $table->string('image_url')->nullable();
-            $table->integer('likes');
+            // $table->integer('likes')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
 
@@ -41,9 +43,6 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');
-            $table->text('text');
-            $table->string('image_url')->nullable();
-            $table->timestamp('created_at');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('post_id')->references('id')->on('posts');
         });

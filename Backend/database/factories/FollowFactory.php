@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Follow>
  */
 class FollowFactory extends Factory
 {
@@ -17,7 +18,8 @@ class FollowFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "user_1" => User::all()->random(),
+            "user_2" => User::all()->random()
         ];
     }
 }
