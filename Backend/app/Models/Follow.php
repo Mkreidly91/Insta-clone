@@ -9,4 +9,13 @@ class Follow extends Model
 {
     public $timestamps = false;
     use HasFactory;
+    public function follower()
+    {
+        return $this->belongsTo(User::class, 'user_1');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_2');
+    }
 }
