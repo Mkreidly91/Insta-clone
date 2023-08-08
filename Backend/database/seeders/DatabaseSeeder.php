@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(20)->create();
         Follow::factory(30)->create();
-        Post::factory(40)->create();
-        LikedPost::factory(20)->create();
+        Post::factory(60)->create();
+        LikedPost::factory(60)->create();
     }
 }
