@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import ContactInput from '../components/CustomInput/ContactInput';
 import instaLogo from '../assets/images/Instagram_logo.svg';
-import { logIn } from '../helpers/auth.helpers';
-import { Link, useNavigate } from 'react-router-dom';
+import { signUp } from '../helpers/auth.helpers';
+import { useNavigate, Link } from 'react-router-dom';
 
 const initialState = {
+  name: '',
+  username: '',
   email: '',
   password: '',
 };
 
-const SignIn = () => {
+const SignUp = () => {
   const [inputState, setInputState] = useState(initialState);
   const [errors, setErrors] = useState('');
   const navigate = useNavigate();
@@ -20,8 +22,8 @@ const SignIn = () => {
     setInputState((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function handleSignIn() {
-    const { data, message, errorMessages } = await logIn(inputState);
+  async function handlesignUp() {
+    const { res, message, errorMessages } = await signUp(inputState);
     console.log(errorMessages);
     if (errorMessages) {
       setErrors(errorMessages[0]);
@@ -30,22 +32,33 @@ const SignIn = () => {
       setErrors(message);
       return;
     }
-    if (data) {
-      localStorage.setItem('user', res.data);
-      // navigate()
-    }
-
-    console.log(res.data);
+    navigate('/');
   }
 
-  const { email, password } = inputState;
+  const { name, username, email, password } = inputState;
   return (
     <div className="page-wrapper h-full flex flex-col justify-center items-center">
-      <div className="signIn-container flex flex-col items-center gap-5 insta-border  h-fit p-10">
+      <div className="signUp-container flex flex-col items-center gap-5 insta-border  h-fit p-10">
         <div className="logo-container flex place-content-center">
           <img className="w-[175px]" src={instaLogo} alt="" />
         </div>
         <div className="form-container flex flex-col gap-5">
+          <ContactInput
+            label="Full Name"
+            name="name"
+            type="text"
+            onChange={onChange}
+            value={name}
+            className={'w-[300px]'}
+          />
+          <ContactInput
+            label="Username"
+            name="username"
+            type="text"
+            onChange={onChange}
+            value={username}
+            className={'w-[300px]'}
+          />
           <ContactInput
             label="Email"
             name="email"
@@ -64,21 +77,21 @@ const SignIn = () => {
           />
         </div>
         <div
-          onClick={() => handleSignIn()}
+          onClick={() => handlesignUp()}
           className="sign-in bg-insta-blue mt-5 p-2 rounded text-center text-white w-full"
         >
-          Sign In
+          Sign Up
         </div>
         <div className="error font-normal text-red-700 text-sm">{errors}</div>
       </div>
       <div className="sign-up mt-10 insta-border p-10 w-[382px] text-center">
-        Don't have an account?
-        <Link to="/signUp">
-          <span className="color-insta-blue">Sign up</span>
+        Already have an account?
+        <Link to="/">
+          <span className="color-insta-blue cursor-pointer">Sign In</span>
         </Link>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;
