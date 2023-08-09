@@ -22,7 +22,6 @@ const SignIn = () => {
 
   async function handleSignIn() {
     const { data, message, errorMessages } = await logIn(inputState);
-    console.log(errorMessages);
     if (errorMessages) {
       setErrors(errorMessages[0]);
       return;
