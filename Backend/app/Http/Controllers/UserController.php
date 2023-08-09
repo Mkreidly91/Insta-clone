@@ -23,8 +23,20 @@ class UserController extends Controller
             "users" => $filteredData
         ]);
     }
+
+    function getFollowingPosts()
+    {
+        $user = Auth::user();
+        $following = $user->following()->with("posts")->get();
+
+        return response()->json([
+            "res" => $following
+        ]);
+
+    }
     function getPosts()
     {
+
         return response()->json([
             "posts" => Auth::user()->posts,
         ]);

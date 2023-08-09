@@ -37,3 +37,6 @@ a {
 .insta-border {
   border: 1px solid var(--instagrey);
 }
+body::-webkit-scrollbar {
+  display: none;
+}
