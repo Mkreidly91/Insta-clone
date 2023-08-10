@@ -23,14 +23,6 @@ const DashBoard = () => {
     getFollowingPosts(token, setAllPosts);
   }, []);
 
-  // username,
-  // image_url,
-  // id,
-  // post_id,
-  // post_image_url,
-  // text,
-  // token,
-  // isLiked,
   return (
     <div className="flex h-full">
       <div className="w-[300px] h-[full]"></div>
