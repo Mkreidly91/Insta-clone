@@ -3,6 +3,7 @@ import SideBar from '../components/SideBar';
 import TopBar from '../components/TopBar';
 import { getFollowingPosts } from '../helpers/user.helpers';
 import Post from '../components/Post';
+import Search from '../components/Search';
 const DashBoard = () => {
   const [allPosts, setAllPosts] = useState();
   const [token, setToken] = useState();
@@ -17,7 +18,8 @@ const DashBoard = () => {
   return (
     <div className="flex h-full">
       <div className="w-[300px] h-[full]"></div>
-      <SideBar />
+      <SideBar token={token} />
+      {/* <Search token={token} /> */}
       <div className="flex flex-col items-center  grow  p-20 gap-10 ">
         {allPosts && allPosts.flat(2).map((e) => <Post {...e} token={token} />)}
       </div>

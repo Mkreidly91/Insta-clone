@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    function getAllUsers($search)
+    function search(Request $request, $search)
     {
         $user = Auth::user();
         $userId = $user->id;
@@ -20,10 +20,25 @@ class UserController extends Controller
             return;
         }
         $res = User::where('username', 'LIKE', "%{$search}%")->where('id', '!=', $userId)->get();
+        $following = $user->following->pluck("id")->toArray();
+        $final = $res->map(function ($user) use ($following) {
+            $isPresent = in_array($user->id, $following);
+
+            return [
+                "id" => $user->id,
+                "name" => $user->name,
+                "username" => $user->username,
+                "image_url" => $user->image_url,
+                "isFollowing" => $isPresent
+            ];
+
+        });
+
 
         return response()->json([
 
-            "users" => $res
+            "users" => $final,
+            // "following" => $following
         ]);
     }
 

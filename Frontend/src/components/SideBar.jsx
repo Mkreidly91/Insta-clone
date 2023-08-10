@@ -9,11 +9,11 @@ import notifications from '../assets/icons/ActivityFeed.svg';
 import post from '../assets/icons/NewPosts.svg';
 
 import SideBarButton from './SideBarButton';
-
-const SideBar = ({ className }) => {
+import Search from './Search';
+const SideBar = ({ className, token }) => {
   return (
     <div
-      className={`sideBar-container w-[300px] fixed   bg-white  pl-5 pt-10 insta-border border-b-0 h-full flex flex-col  ${className}`}
+      className={`sideBar-container fixed  w-[300px]    bg-white  pl-5 pt-10 insta-border border-b-0 h-full flex flex-col  ${className}`}
     >
       <div className="sideBar-content flex flex-col gap-10 ">
         <div className="logo-container ">
@@ -29,6 +29,7 @@ const SideBar = ({ className }) => {
           <SideBarButton img={post} text="Create" />
         </div>
       </div>
+      <Search token={token} />
     </div>
   );
 };
