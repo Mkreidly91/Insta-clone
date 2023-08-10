@@ -5,6 +5,7 @@ import UserButton from './userButton';
 const Search = ({ token }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState();
+
   const timeout = useRef();
 
   const changeHandler = (e) => {

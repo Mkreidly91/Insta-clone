@@ -83,7 +83,6 @@ class UserController extends Controller
 
     function getLikedPosts()
     {
-
         $posts = Auth::user()->likedPosts;
         $results = [];
         foreach ($posts as $post) {
