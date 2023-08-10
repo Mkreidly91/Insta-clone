@@ -12,6 +12,7 @@ const Post = ({
   text,
   token,
   isLiked,
+  type,
 }) => {
   const [liked, setLiked] = useState(false);
 
@@ -32,8 +33,10 @@ const Post = ({
             src={liked ? heartFull : heart}
             alt=""
             onClick={() => {
-              setLiked((prev) => !prev);
-              likePost({ post_id }, token);
+              {
+                setLiked((prev) => !prev);
+                likePost({ post_id }, token);
+              }
             }}
           />
         </div>

@@ -33,6 +33,7 @@ class AuthController extends Controller
         $user = Auth::user();
         return response()->json([
             'name' => $user->name,
+            'username' => $user->username,
             'email' => $user->email,
             'image_url' => $user->image_url,
             'token' => $token,
@@ -75,6 +76,7 @@ class AuthController extends Controller
         return response()->json(
             [
                 'name' => $user->name,
+                'username' => $user->username,
                 'email' => $user->email,
                 'image_url' => $user->image_url,
                 'token' => Auth::refresh(),

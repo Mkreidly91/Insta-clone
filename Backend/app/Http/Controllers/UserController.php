@@ -77,9 +77,21 @@ class UserController extends Controller
     }
     function getPosts()
     {
+        $user = Auth::user();
+        $posts = $user->posts;
+        foreach ($posts as $post) {
+            $img_url = $post->image_url;
+            if (Storage::disk('public')->exists($img_url)) {
 
+                $image = Storage::disk('public')->get($img_url);
+                $mimeType = Storage::disk('public')->mimeType($img_url);
+                $post->image_url = 'data:' . $mimeType . ';base64,' . base64_encode($image);
+                ;
+            }
+        }
         return response()->json([
-            "posts" => Auth::user()->posts,
+            "posts" => $posts,
+
         ]);
     }
 
@@ -188,4 +200,6 @@ class UserController extends Controller
         }
 
     }
+
+
 }

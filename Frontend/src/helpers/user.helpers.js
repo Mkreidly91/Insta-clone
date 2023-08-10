@@ -10,7 +10,7 @@ async function getFollowingPosts(token, setPosts) {
       },
     });
     const { status, data } = response;
-    console.log(response);
+
     if (status === 200) {
       setPosts(data.res);
     }
@@ -30,7 +30,6 @@ async function likePost({ post_id }, token) {
         },
       }
     );
-    console.log(response);
   } catch (error) {
     console.log(error);
   }
@@ -60,8 +59,25 @@ async function followUser(token, userId) {
         },
       }
     );
-    console.log(response);
+
     return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getUserPosts(token, setUserPosts) {
+  try {
+    const response = await axios.get(`${base_url}user/getPosts`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const { status, data } = response;
+    console.log(data);
+    if (status === 200) {
+      setUserPosts(data.posts);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -78,10 +94,16 @@ async function addPost(token, { text, img }) {
         },
       }
     );
-    console.log(response);
   } catch (error) {
     console.log(error);
   }
 }
 
-export { getFollowingPosts, likePost, search, followUser, addPost };
+export {
+  getFollowingPosts,
+  likePost,
+  search,
+  followUser,
+  addPost,
+  getUserPosts,
+};
