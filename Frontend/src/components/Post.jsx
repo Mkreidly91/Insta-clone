@@ -13,10 +13,13 @@ const Post = ({
   token,
   isLiked,
   type,
+  count,
 }) => {
   const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
+    setLikeCount(count);
     setLiked(isLiked);
   }, []);
 
@@ -28,17 +31,22 @@ const Post = ({
       </div>
       <div className="post-content">
         <img className="w-full aspect-square rounded-lg" src={post_image_url} />
-        <div className="icons">
+        <div className="icons flex gap-4">
           <img
             src={liked ? heartFull : heart}
             alt=""
             onClick={() => {
               {
                 setLiked((prev) => !prev);
+
+                liked
+                  ? setLikeCount((prev) => prev - 1)
+                  : setLikeCount((prev) => prev + 1);
                 likePost({ post_id }, token);
               }
             }}
           />
+          <span>{likeCount}</span>
         </div>
         <div className="text-container">{text}</div>
       </div>

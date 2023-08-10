@@ -65,7 +65,8 @@ class UserController extends Controller
                         'post_id' => $post->id,
                         'text' => $post->text,
                         'post_image_url' => $post->image_url,
-                        'isLiked' => $isPresent
+                        'isLiked' => $isPresent,
+                        'count' => $post->likedByUsers->count()
                     ];
                 }),
             ];
@@ -81,6 +82,7 @@ class UserController extends Controller
         $posts = $user->posts;
         foreach ($posts as $post) {
             $img_url = $post->image_url;
+            $post->count = $post->likedByUsers->count();
             if (Storage::disk('public')->exists($img_url)) {
 
                 $image = Storage::disk('public')->get($img_url);
@@ -89,9 +91,9 @@ class UserController extends Controller
                 ;
             }
         }
+
         return response()->json([
             "posts" => $posts,
-
         ]);
     }
 

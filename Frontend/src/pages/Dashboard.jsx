@@ -68,6 +68,7 @@ const DashBoard = () => {
               user_id: id,
               image_url: post_image_url,
               text,
+              count,
             } = e;
             const { image_url, name, username } = userInfo;
             const postData = {
@@ -79,6 +80,7 @@ const DashBoard = () => {
               text,
               token,
               isLiked: false,
+              count,
             };
             return <Post key={index} token={token} {...postData} user />;
           })}
