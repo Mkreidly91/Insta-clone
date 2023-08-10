@@ -5,12 +5,13 @@ import UserButton from './userButton';
 const Search = ({ token }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState();
-  console.log(results);
   const timeout = useRef();
+
   const changeHandler = (e) => {
     const { value } = e.target;
     setQuery(value);
   };
+
   async function handleDebounceSearch(e) {
     clearTimeout(timeout.current);
     if (!search) return;
@@ -20,6 +21,7 @@ const Search = ({ token }) => {
       setResults(users);
     }, 600);
   }
+
   return (
     <div className="w-[400px] p-5 absolute h-full top-0 left-[60px] bg-white  border-x-[1px] ">
       <div className="searchbar">
@@ -39,7 +41,9 @@ const Search = ({ token }) => {
       <div className="results border-red-500 flex flex-col gap-5">
         {query &&
           results &&
-          results.data.users.map((user) => <UserButton {...user} />)}
+          results.data.users.map((user) => (
+            <UserButton {...user} token={token} />
+          ))}
       </div>
     </div>
   );

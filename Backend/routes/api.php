@@ -18,5 +18,6 @@ Route::prefix('user')->group(function () {
         Route::get('getLikedPosts', 'getLikedPosts');
         Route::get('getFollowingPosts', 'getFollowingPosts');
         Route::post('likePost', 'likePost');
+        Route::post('followUser', 'followUser');
     });
 });

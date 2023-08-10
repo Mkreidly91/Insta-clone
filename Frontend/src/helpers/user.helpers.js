@@ -49,6 +49,21 @@ async function search(token, search) {
   }
 }
 
-const k = search('ka');
-console.log(k);
-export { getFollowingPosts, likePost, search };
+async function followUser(token, userId) {
+  try {
+    const response = await axios.post(
+      `${base_url}user/followUser`,
+      { userId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export { getFollowingPosts, likePost, search, followUser };

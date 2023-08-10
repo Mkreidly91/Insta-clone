@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follow;
 use App\Models\LikedPost;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -121,4 +122,22 @@ class UserController extends Controller
         return response()->json(['message' => 'Post liked'], 200);
     }
 
+    function followUser(Request $request)
+    {
+        $user = Auth::user();
+        $otherUserId = $request->userId;
+        $existing = Follow::where('user_1', $user->id)
+            ->where('user_2', $otherUserId)
+            ->first();
+        if ($existing) {
+            $existing->delete();
+            return response()->json(['message' => 'User unfollowed'], 200);
+        }
+
+        $newFollow = new Follow;
+        $newFollow->user_1 = $user->id;
+        $newFollow->user_2 = $otherUserId;
+        $newFollow->save();
+        return response()->json(['message' => 'user followed'], 200);
+    }
 }
