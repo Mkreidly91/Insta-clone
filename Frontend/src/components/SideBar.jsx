@@ -13,11 +13,11 @@ import SideBarButton from './SideBarButton';
 const SideBar = ({ className }) => {
   return (
     <div
-      className={`sideBar-container w-[300px] fixed  bg-white  pl-5 pt-10 insta-border border-b-0 h-full flex flex-col  ${className}`}
+      className={`sideBar-container w-[300px] fixed   bg-white  pl-5 pt-10 insta-border border-b-0 h-full flex flex-col  ${className}`}
     >
       <div className="sideBar-content flex flex-col gap-10 ">
         <div className="logo-container ">
-          <img className="w-[125px]  " src={logo} alt="" />
+          <img className="w-[125px]" src={logo} alt="" />
         </div>
         <div className="controls flex flex-col  gap-4">
           <SideBarButton img={home} text="Home" />

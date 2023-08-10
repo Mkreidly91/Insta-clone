@@ -30,11 +30,9 @@ const SignIn = () => {
       return;
     }
     if (data) {
-      localStorage.setItem('user', res.data);
-      // navigate()
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate('/dashBoard');
     }
-
-    console.log(res.data);
   }
 
   const { email, password } = inputState;
