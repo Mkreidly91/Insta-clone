@@ -46,7 +46,7 @@ const Post = ({
               }
             }}
           />
-          <span>{likeCount}</span>
+          <span>{likeCount ? likeCount : ''}</span>
         </div>
         <div className="text-container mt-2">{text}</div>
       </div>
