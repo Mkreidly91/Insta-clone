@@ -19,4 +19,21 @@ async function getFollowingPosts(token, setPosts) {
   }
 }
 
-export { getFollowingPosts };
+async function likePost({ post_id }, token) {
+  try {
+    const response = await axios.post(
+      `${base_url}user/likePost`,
+      { post_id },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getFollowingPosts, likePost };

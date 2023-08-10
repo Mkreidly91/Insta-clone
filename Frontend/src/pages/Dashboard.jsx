@@ -5,11 +5,13 @@ import { getFollowingPosts } from '../helpers/user.helpers';
 import Post from '../components/Post';
 const DashBoard = () => {
   const [allPosts, setAllPosts] = useState();
+  const [token, setToken] = useState();
+
   console.log(allPosts);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-
+    setToken(token);
     getFollowingPosts(token, setAllPosts);
   }, []);
   return (
@@ -17,7 +19,7 @@ const DashBoard = () => {
       <div className="w-[300px] h-[full]"></div>
       <SideBar />
       <div className="flex flex-col items-center  grow  p-20 gap-10 ">
-        {allPosts && allPosts.flat(2).map((e) => <Post {...e} />)}
+        {allPosts && allPosts.flat(2).map((e) => <Post {...e} token={token} />)}
       </div>
     </div>
   );

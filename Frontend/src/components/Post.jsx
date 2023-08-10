@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import heart from '../assets/icons/ActivityFeed.svg';
 import heartFull from '../assets/icons/ActivityFeed-Fiil.svg';
-
-const Post = ({ username, image_url, id, post_id, post_image_url, text }) => {
+import { likePost } from '../helpers/user.helpers';
+const Post = ({
+  username,
+  image_url,
+  id,
+  post_id,
+  post_image_url,
+  text,
+  token,
+  isLiked,
+}) => {
   const [liked, setLiked] = useState(false);
+  useEffect(() => {
+    setLiked(isLiked);
+  }, []);
+  console.log(isLiked);
   return (
     <div className="post-container w-[350px] flex flex-col gap-2">
       <div className="user-info flex items-center gap-3">
@@ -18,7 +31,7 @@ const Post = ({ username, image_url, id, post_id, post_image_url, text }) => {
             alt=""
             onClick={() => {
               setLiked((prev) => !prev);
-              //Call Like post async
+              likePost({ post_id }, token);
             }}
           />
         </div>

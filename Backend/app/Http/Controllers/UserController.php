@@ -28,6 +28,9 @@ class UserController extends Controller
     function getFollowingPosts()
     {
         $user = Auth::user();
+        // return response()->json([
+        //     'user' => $user
+        // ]);
         $following = $user->following()->with("posts")->get();
         $formattedResponse = $following->map(function ($user) {
             // return [
@@ -42,15 +45,21 @@ class UserController extends Controller
             //     ];
             // }),
             // ];
+
             return [
                 $user->posts->map(function ($post) {
+                    $id = Auth::user()->id;
+                    $isLiked = $post->likedByUsers->pluck("id")->toArray();
+                    $isPresent = in_array($id, $isLiked);
+
                     return [
-                        'id' => $post->user->id,
+                        'id' => Auth::user()->id,
                         'username' => $post->user->username,
                         'image_url' => $post->user->image_url,
                         'post_id' => $post->id,
                         'text' => $post->text,
                         'post_image_url' => $post->image_url,
+                        'isLiked' => $isPresent
                     ];
                 }),
             ];
@@ -92,8 +101,8 @@ class UserController extends Controller
     }
     function likePost(Request $request)
     {
-        $postId = $request->post_id;
         $user = Auth::user();
+        $postId = $request->post_id;
         $existingLike = LikedPost::where('post_id', $postId)
             ->where('user_id', $user->id)
             ->first();
