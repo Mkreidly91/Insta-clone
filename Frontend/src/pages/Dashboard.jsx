@@ -7,7 +7,6 @@ import explore from '../assets/icons/Guides.svg';
 const DashBoard = () => {
   const [allPosts, setAllPosts] = useState();
   const [myPosts, setMyPosts] = useState();
-  console.log(myPosts);
   const [token, setToken] = useState();
   const [userInfo, setUserInfo] = useState();
   const [page, setPage] = useState({
@@ -18,7 +17,7 @@ const DashBoard = () => {
     const { token, image_url, name, username } = JSON.parse(
       localStorage.getItem('user')
     );
-    console.log(JSON.parse(localStorage.getItem('user')));
+
     setToken(token);
     setUserInfo({ image_url, name, username });
     getFollowingPosts(token, setAllPosts);

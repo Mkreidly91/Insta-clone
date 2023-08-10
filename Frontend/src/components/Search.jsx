@@ -42,8 +42,8 @@ const Search = ({ token }) => {
       <div className="results border-red-500 flex flex-col gap-5">
         {query &&
           results &&
-          results.data.users.map((user) => (
-            <UserButton {...user} token={token} />
+          results.data.users.map((user, index) => (
+            <UserButton key={index} {...user} token={token} />
           ))}
       </div>
     </div>

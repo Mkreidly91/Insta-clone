@@ -31,7 +31,7 @@ const Post = ({
       </div>
       <div className="post-content">
         <img className="w-full aspect-square rounded-lg" src={post_image_url} />
-        <div className="icons flex gap-4">
+        <div className="icons flex gap-4 mt-2">
           <img
             src={liked ? heartFull : heart}
             alt=""
@@ -48,7 +48,7 @@ const Post = ({
           />
           <span>{likeCount}</span>
         </div>
-        <div className="text-container">{text}</div>
+        <div className="text-container mt-2">{text}</div>
       </div>
     </div>
   );
