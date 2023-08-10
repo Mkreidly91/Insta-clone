@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Follow;
 use App\Models\LikedPost;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -138,5 +140,52 @@ class UserController extends Controller
         $newFollow->user_2 = $otherUserId;
         $newFollow->save();
         return response()->json(['message' => 'user followed'], 200);
+    }
+
+
+    function addPost(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate(
+            [
+                "text" => "Required|string",
+                "img" => "Required|string",
+            ]
+
+        );
+
+        $post = new Post;
+
+        $post->user_id = $user->id;
+        $post->text = $request->text;
+
+        // Decode base 64
+        $image_64 = $request->img;
+
+        if ($image_64) {
+            $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+            $replace = substr($image_64, 0, strpos($image_64, ',') + 1);
+            $image = str_replace($replace, '', $image_64);
+            $image = str_replace(' ', '+', $image);
+            $filename = uniqid() . '.' . $extension;
+            $image_url = 'images/' . $filename;
+            Storage::disk('public')->put('images/' . $filename, base64_decode($image));
+            $post->image_url = $image_url;
+        } else {
+            $post->image_url = "";
+        }
+
+
+        try {
+            $post->save();
+            return response()->json([
+                'message' => 'success'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e,
+            ], 500);
+        }
+
     }
 }

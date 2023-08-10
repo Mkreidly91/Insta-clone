@@ -19,5 +19,6 @@ Route::prefix('user')->group(function () {
         Route::get('getFollowingPosts', 'getFollowingPosts');
         Route::post('likePost', 'likePost');
         Route::post('followUser', 'followUser');
+        Route::post('addPost', 'addPost');
     });
 });

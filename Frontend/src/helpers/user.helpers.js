@@ -66,4 +66,22 @@ async function followUser(token, userId) {
     console.log(error);
   }
 }
-export { getFollowingPosts, likePost, search, followUser };
+
+async function addPost(token, { text, img }) {
+  try {
+    const response = await axios.post(
+      `${base_url}user/addPost`,
+      { text, img },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getFollowingPosts, likePost, search, followUser, addPost };

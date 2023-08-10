@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import heart from '../assets/icons/ActivityFeed.svg';
 import heartFull from '../assets/icons/ActivityFeed-Fiil.svg';
 import { likePost } from '../helpers/user.helpers';
+
 const Post = ({
   username,
   image_url,
@@ -13,10 +14,11 @@ const Post = ({
   isLiked,
 }) => {
   const [liked, setLiked] = useState(false);
+
   useEffect(() => {
     setLiked(isLiked);
   }, []);
-  console.log(isLiked);
+
   return (
     <div className="post-container w-[350px] flex flex-col gap-2">
       <div className="user-info flex items-center gap-3">

@@ -9,9 +9,12 @@ import notifications from '../assets/icons/ActivityFeed.svg';
 import post from '../assets/icons/NewPosts.svg';
 
 import SideBarButton from './SideBarButton';
+import AddPost from './AddPost';
 import Search from './Search';
 const SideBar = ({ className, token }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [postPage, setPostPage] = useState(false);
+
   return (
     <div
       className={`sideBar-container fixed  w-[300px]    bg-white  pl-5 pt-10 insta-border border-b-0 h-full flex flex-col  ${className}`}
@@ -37,7 +40,14 @@ const SideBar = ({ className, token }) => {
           <SideBarButton img={reels} text="Reels" />
           <SideBarButton img={messages} text="Messages" />
           <SideBarButton img={notifications} text="Notifications" />
-          <SideBarButton img={post} text="Create" />
+          <SideBarButton
+            img={post}
+            text="Create"
+            onClick={() => {
+              setPostPage((prev) => !prev);
+            }}
+          />
+          {postPage && <AddPost setPostPage={setPostPage} token={token} />}
         </div>
       </div>
       {isOpen && <Search token={token} />}
