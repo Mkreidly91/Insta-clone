@@ -10,41 +10,29 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    function getAllUsers()
+    function getAllUsers($search)
     {
-        $userId = Auth::user()->id;
-        $allOtherUsers = User::all()->where('id', '!=', $userId)->except(["id"]);
-        $filteredData = $allOtherUsers->map(function ($user) {
-            return [
-                'username' => $user->username,
-                'image_url' => $user->image_url,
-            ];
-        });
+        $user = Auth::user();
+        $userId = $user->id;
+
+
+        if (!$search) {
+            return;
+        }
+        $res = User::where('username', 'LIKE', "%{$search}%")->where('id', '!=', $userId)->get();
+
         return response()->json([
-            "users" => $filteredData
+
+            "users" => $res
         ]);
     }
 
     function getFollowingPosts()
     {
         $user = Auth::user();
-        // return response()->json([
-        //     'user' => $user
-        // ]);
+
         $following = $user->following()->with("posts")->get();
         $formattedResponse = $following->map(function ($user) {
-            // return [
-            // 'id' => $user->id,
-            // 'username' => $user->username,
-            // 'image_url' => $user->image_url,
-            // 'posts' => $user->posts->map(function ($post) {
-            //     return [
-            //         'post_id' => $post->id,
-            //         'text' => $post->text,
-            //         'post_image_url' => $post->image_url,
-            //     ];
-            // }),
-            // ];
 
             return [
                 $user->posts->map(function ($post) {

@@ -13,7 +13,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::controller(UserController::class)->group(function () {
-        Route::get('getAllUsers', 'getAllUsers');
+        Route::get('getAllUsers/{search}', 'getAllUsers');
         Route::get('getPosts', 'getPosts');
         Route::get('getLikedPosts', 'getLikedPosts');
         Route::get('getFollowingPosts', 'getFollowingPosts');
